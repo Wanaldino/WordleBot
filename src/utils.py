@@ -7,8 +7,8 @@ import nextcord
 
 import data.data as data
 
-popular_words = data.pokemon_names
-all_words = set(popular_words)
+all_words = sorted(set(data.pokemon_names), key=lambda x: x[2])
+
 max_length = max(map(len, all_words))
 
 EMOJI_CODES = {
@@ -191,7 +191,7 @@ def update_embed(embed: nextcord.Embed, guess: str) -> nextcord.Embed:
         nextcord.Embed: The updated embed
     """
     puzzle_id = int(embed.footer.text.split()[1])
-    answer = popular_words[puzzle_id]
+    answer = all_words[puzzle_id]
     colored_word = generate_colored_word(guess, answer)
     empty_slot = generate_blanks()
     # replace the first blank with the colored word
@@ -236,7 +236,7 @@ def random_puzzle_id() -> int:
     Returns:
         int: A random puzzle ID
     """
-    return random.randint(0, len(popular_words) - 1)
+    return random.randint(0, len(all_words) - 1)
 
 
 def daily_puzzle_id() -> int:
@@ -247,7 +247,7 @@ def daily_puzzle_id() -> int:
         int: The puzzle ID for the daily puzzle
     """
     # calculate days since 1/1/2022 and mod by the number of puzzles
-    num_words = len(popular_words)
+    num_words = len(all_words)
     time_diff = datetime.datetime.now().date() - datetime.date(2022, 1, 1)
     time_diff = time_diff.days * datetime.datetime.now().day * (datetime.datetime.now().weekday() + 1)
     return time_diff % num_words
