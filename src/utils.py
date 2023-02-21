@@ -249,7 +249,8 @@ def daily_puzzle_id() -> int:
     # calculate days since 1/1/2022 and mod by the number of puzzles
     num_words = len(popular_words)
     time_diff = datetime.datetime.now().date() - datetime.date(2022, 1, 1)
-    return time_diff.days % num_words
+    time_diff = time_diff.days * datetime.datetime.now().day * (datetime.datetime.now().weekday() + 1)
+    return time_diff % num_words
 
 
 def is_game_over(embed: nextcord.Embed) -> bool:
