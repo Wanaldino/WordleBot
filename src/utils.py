@@ -40,6 +40,7 @@ EMOJI_CODES = {
         "y": "<:green_y:1076195237883547668>",
         "z": "<:green_z:1076195239737446501>",
         " ": "<:green_square:1076539072228634705>",
+        "-": "<:green_square:1076539072228634705>",
         "2": "<:green_2:1076547977667149926>"
     },
     "yellow": {
@@ -70,6 +71,7 @@ EMOJI_CODES = {
         "y": "<:yellow_y:1076196257376256051>",
         "z": "<:yellow_z:1076195933051682886>",
         " ": "<:yellow:square:1076539242311843990>",
+        "-": "<:yellow:square:1076539242311843990>",
         "2": "<:yellow_2:1076548185905954887>"
     },
     "gray": {
@@ -100,6 +102,7 @@ EMOJI_CODES = {
         "y": "<:gray_y:1076196525400674435>",
         "z": "<:gray_z:1076196527283904634>",
         " ": "<:gray_square:1076539159373676634>",
+        "-": "<:gray_square:1076539159373676634>",
         "2": "<:gray_2:1076548331309891646>"
     },
 }
@@ -362,15 +365,6 @@ async def process_message_as_guess(bot: nextcord.Client, message: nextcord.Messa
         )
         try:
             await message.delete(delay=14)
-        except Exception:
-            pass
-        return True
-
-    # check that a single word is in the message
-    if len(guess.split()) > 1:
-        await message.reply("Please respond with a single 5-letter word.", delete_after=5)
-        try:
-            await message.delete(delay=5)
         except Exception:
             pass
         return True
